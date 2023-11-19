@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmq3g488y8rp0"]
+
+[ext_resource type="PackedScene" uid="uid://orc7j4ylbpnn" path="res://scenes/Entity.tscn" id="1_jsyqq"]
+[ext_resource type="Texture2D" uid="uid://c8wvsjytn85ad" path="res://assets/paper.svg" id="2_bgn0i"]
+[ext_resource type="Texture2D" uid="uid://dg8bo3dq2vktd" path="res://assets/rock.svg" id="3_wuuiv"]
+
+[node name="World" type="Node2D"]
+
+[node name="Entity" parent="." instance=ExtResource("1_jsyqq")]
+position = Vector2(1012, 256)
+my_predators = Array[int]([2])
+my_entity_type = 1
+my_sprite = ExtResource("2_bgn0i")
+my_direction = -1
+
+[node name="Entity2" parent="." instance=ExtResource("1_jsyqq")]
+position = Vector2(274, 227)
+my_predators = Array[int]([1])
+my_sprite = ExtResource("3_wuuiv")
+my_direction = 1
