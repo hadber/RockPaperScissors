@@ -35,12 +35,22 @@ func _ready():
 # add them all together and then normalize
 # move in that direction * speed`
 func _process(_delta):
-#	my_direction = Vector2.ZERO
+#	BELOW IS FOR FOLLOWING SOMETHING
+#	if not my_nearby_entities.is_empty():
+#		var tmp_direction: Vector2 = Vector2.ZERO
+#		for e in my_nearby_entities:
+#			tmp_direction += (e.position - position).normalized()
+#		my_direction = tmp_direction
+
 	if not my_nearby_entities.is_empty():
+		var tmp_direction: Vector2 = Vector2.ZERO
 		for e in my_nearby_entities:
-			my_direction += e.position
-		my_direction = my_direction.normalized()
-		
+			if e.my_entity_type in my_predators:
+				tmp_direction += (position - e.position).normalized()
+			else:
+				tmp_direction += (e.position - position).normalized()
+		my_direction = tmp_direction
+
 #	else:
 #		my_direction = 
 	var next_position: Vector2 = position + my_direction.normalized() * SPEED
