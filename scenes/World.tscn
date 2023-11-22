@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmq3g488y8rp0"]
+[gd_scene load_steps=5 format=3 uid="uid://cmq3g488y8rp0"]
 
+[ext_resource type="Script" path="res://scripts/World.gd" id="1_06njf"]
 [ext_resource type="PackedScene" uid="uid://orc7j4ylbpnn" path="res://scenes/Entity.tscn" id="1_jsyqq"]
 [ext_resource type="Texture2D" uid="uid://c8wvsjytn85ad" path="res://assets/paper.svg" id="2_bgn0i"]
 [ext_resource type="Texture2D" uid="uid://dg8bo3dq2vktd" path="res://assets/rock.svg" id="3_wuuiv"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_06njf")
 
 [node name="Rock" parent="." instance=ExtResource("1_jsyqq")]
 position = Vector2(829, 267)

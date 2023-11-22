@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://orc7j4ylbpnn"]
+[gd_scene load_steps=5 format=3 uid="uid://orc7j4ylbpnn"]
 
 [ext_resource type="Script" path="res://scripts/Entity.gd" id="1_cdx5u"]
 [ext_resource type="Texture2D" uid="uid://wntflsa3ba1k" path="res://icon.svg" id="1_vcviu"]
@@ -6,16 +6,28 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c2tg5"]
 radius = 200.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tlpyc"]
+radius = 75.0
+
 [node name="Entity" type="Node2D"]
 script = ExtResource("1_cdx5u")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_vcviu")
 
-[node name="AreaOfInfluence" type="Area2D" parent="."]
+[node name="Vision" type="Area2D" parent="."]
+collision_layer = 0
 
-[node name="Circle" type="CollisionShape2D" parent="AreaOfInfluence"]
+[node name="Circle" type="CollisionShape2D" parent="Vision"]
 shape = SubResource("CircleShape2D_c2tg5")
 
-[connection signal="area_entered" from="AreaOfInfluence" to="." method="_on_area_of_influence_area_entered"]
-[connection signal="area_exited" from="AreaOfInfluence" to="." method="_on_area_of_influence_area_exited"]
+[node name="BBox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 2
+
+[node name="Circle" type="CollisionShape2D" parent="BBox"]
+shape = SubResource("CircleShape2D_tlpyc")
+
+[connection signal="area_entered" from="Vision" to="." method="_on_area_of_influence_area_entered"]
+[connection signal="area_exited" from="Vision" to="." method="_on_area_of_influence_area_exited"]
+[connection signal="area_entered" from="BBox" to="." method="_on_b_box_area_entered"]

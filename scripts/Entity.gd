@@ -47,7 +47,7 @@ func _process(_delta):
 		for e in my_nearby_entities:
 			if e.my_entity_type in my_predators:
 				tmp_direction += (position - e.position).normalized()
-			else:
+			elif e.my_entity_type in my_prey:
 				tmp_direction += (e.position - position).normalized()
 		my_direction = tmp_direction
 
@@ -59,9 +59,7 @@ func _process(_delta):
 	if next_position.y < 0 or next_position.y > ProjectSettings.get_setting("display/window/size/viewport_height"):
 		my_direction.y = -my_direction.y
 	
-	print(next_position)
 	position += my_direction.normalized() * SPEED
-	print(position)
 
 func _draw():
 	pass
@@ -75,7 +73,7 @@ func _on_area_of_influence_area_entered(area: Area2D):
 		my_nearby_entities.append(some_entity)
 
 
-func _on_area_of_influence_area_exited(area):
+func _on_area_of_influence_area_exited(area: Area2D):
 	var some_entity: Entity = area.get_parent()
 	if(some_entity in my_nearby_entities):
 		#print("removed entity:", some_entity)
@@ -84,3 +82,18 @@ func _on_area_of_influence_area_exited(area):
 
 func get_entity_type():
 	return my_entity_type
+
+
+func _on_b_box_area_entered(area: Area2D):
+	var parent_entity: Entity = area.get_parent()
+	var parent_entity_type: ENTITY_TYPE = parent_entity.get_entity_type()
+	
+	# we don't want to transform into our prey
+	if not parent_entity_type in my_predators:
+		return
+	
+	my_entity_type = parent_entity_type
+	my_sprite = parent_entity.my_sprite
+	
+	# transform myself into a different entity type
+	# needs an entity factory
